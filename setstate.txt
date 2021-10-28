@@ -1,0 +1,183 @@
+ReactJS setState()
+
+The state of a component can change either due to a response to an action performed by the user or an event triggered by the system. Whenever the state changes, React re-renders the component to the browser. Before updating the value of the state, we need to build an initial state setup. Once we are done with it, we use the setState() method to change the state object. It ensures that the component has been updated and calls for re-rendering of the component.
+
+Syntax: We can use setState() to change the state of the component directly as well as through an arrow function.
+
+setState({ stateName : updatedStateValue })
+
+// OR
+setState((prevState) => ({ 
+   stateName: prevState.stateName + 1 
+}))
+Creating React Application:
+
+Step 1: Create a React application using the following command:
+
+npx create-react-app foldername
+Step 2: After creating your project folder i.e. foldername, move to it using the following command:
+cd foldername
+Example 1: Updating single attribute.
+
+We set up our initial state value inside constructor function and create another function updateState() for updating the state. Now when we click on the button, the latter gets triggered as an onClick event which changes the state value. We perform setState() method in our updateState() function by writing:
+
+this.setState({greeting : 'Sai welcomes you !!'}) 
+As you can see, we are passing an object to setState(). This object contains the part of the state we want to update which, in this case, is the value of greeting. React takes this value and merges it into the object that needs it. It’s just like the button component asks what it should use for updating the value of greeting and setState() responds with an answer.
+
+import React, { Component } from 'react'
+	
+class App extends Component {
+constructor(props){
+	super(props)
+		
+	// Set initial state
+	this.state = {greeting :
+		'Click the button to receive greetings'}
+		
+	// Binding this keyword
+	this.updateState = this.updateState.bind(this)
+}
+	
+updateState(){
+	// Changing state
+	this.setState({greeting :
+				'SRI welcomes you !!'})
+}
+	
+render(){
+	return (
+	<div>
+	<h2>Greetings Portal</h2>
+	<p>{this.state.greeting}</p>
+	
+		{/* Set click handler */}
+		<button onClick={this.updateState}>
+		Click me!
+		</button>
+	</div>
+	)
+}
+}
+	
+export default App;
+Step to Run Application: Run the application using the following command from the root directory of the project:
+
+npm start
+Output: Now open your browser and go to http://localhost:3000/, you will see the following output:
+
+
+Example : Updating state values using props.
+
+We set up an array of strings testTopics as props for our component. A function listOfTopics is created to map all the strings as list items in our state topics. The function updateState gets triggered and sets the topics to list items. When we click on the button, we get updated state values. This method is well-known for handling complex data and updating the state very easily. 
+
+import React, { Component } from 'react'
+	
+class App extends Component {
+static defaultProps = {
+	testTopics : [
+	'React JS', 'Node JS', 'Compound components',
+	'Lifecycle Methods', 'Event Handlers',
+	'Router', 'React Hooks', 'Redux',
+	'Context'
+	]
+}
+
+constructor(props){
+	super(props)
+		
+	// Set initial state
+	this.state = {
+	testName: "React js Test",
+	topics: ''
+	}
+		
+	// Binding this keyword
+	this.updateState = this.updateState.bind(this)
+}
+	
+listOfTopics(){
+	return (
+	<ul>
+		{this.props.testTopics.map(topic => (
+		<li>{topic}</li>
+		))}
+	</ul>
+	)
+}
+
+updateState(){
+	
+	// Changing state
+	this.setState({
+	testName: 'Test topics are:',
+	topics: this.listOfTopics()
+	})
+}
+	
+render(){
+	return (
+	<div>
+		<h2>Test Information</h2>
+		<p>{this.state.testName}</p>
+		<p>{this.state.topics}</p>
+		{/* Set click handler */}
+		<button onClick={this.updateState}>
+		Click me!
+		</button>
+	</div>
+	)
+}
+}
+	
+export default App;
+
+Step to Run Application: Run the application using the following command from the root directory of the project:
+npm start
+Output: Now open your browser and go to http://localhost:3000/, you will see the following output:
+
+Example. Updating the state using its previous value.
+
+We create an initial state count having a value of 0. The function updateState() increments the present value of the state by 1 whenever it is called. This time we use setState() method in an arrow function by passing prevState as a parameter. The current value of the state is accessed with prevState.stateName which gets incremented by 1 whenever we press the button. This method is really useful when we are setting a value in the state in such a way that it depends on its previous value. For example, toggling a boolean (true/false) or incrementing/decrementing a number.
+
+import React, { Component } from 'react'
+	
+class App extends Component {
+
+constructor(props){
+	super(props)
+		
+	// Set initial state
+	this.state = {
+	count: 0
+	}
+		
+	// Binding this keyword
+	this.updateState = this.updateState.bind(this)
+}
+	
+updateState(){
+	// Changing state
+	this.setState((prevState) => {
+	return { count: prevState.count + 1}
+	})
+}
+	
+render(){
+	return (
+	<div>
+		<h2>Click Counter</h2>		
+		<p>You have clicked me {this.state.count} times.</p>
+		{/* Set click handler */}
+		<button onClick={this.updateState}>
+		Click me!
+		</button>
+	</div>
+	)
+}
+}
+
+export default App;
+Step to Run Application: Run the application using the following command from the root directory of the project:
+
+npm start
+Output: Now open your browser and go to http://localhost:3000/, you will see the following output:

@@ -1,0 +1,119 @@
+Implementing State & Lifecycle
+
+Open your react project directory and edit the Index.js file from src folder:
+
+src index.js:
+ 
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+function showTime()
+{
+const myElement = (
+				<div>
+						<h1>Welcome to Sai!</h1>
+						<h2>{new Date().toLocaleTimeString()}</h2>
+				</div>
+				);
+
+ReactDOM.render(
+	myElement,
+	document.getElementById("root")
+);				
+}
+
+setInterval(showTime, 1000)
+
+
+Now what is the component in the above example ? Actually, if you pay attention there is no component whatsoever. We are assigning a nested JSX element named “myElement” to contain the latest time and rendering the same every second, which is one of the worst ways to implement using React. Now we will start to implement it using the state and lifecycle methods which will require a classful component, let us start by creating one beforehand. 
+
+Open your react project directory and edit the Index.js file from src folder:
+
+src index.js:
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+class Clock extends React.Component {
+}
+
+Now that we have defined the class to be “Clock” we must think of the process first. “Props” is the set of attributes that rarely change while “State” is the set of observable attributes that are supposed to change over time. Now if we think about our own situation, our clock has exactly two parts one is the title that says “Welcome to Sai!” this should be implemented using props as it will not be changing throughout the lifetime; the other part is the time itself that should be changed at each second. Let us just use the constructor and render method to first create the backbone method to show the title and time without updating it at regular intervals. 
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+class Clock extends React.Component {
+	constructor(props)
+	{
+		super(props);
+		this.state = { time : new Date() };
+	}
+
+	render()
+ 	{
+		return (
+			<div><h1>Welcome to { this.props.title } !</h1>
+		<h2>{this.state.time}</h2></div>
+	);
+}
+}
+
+<Clock title="Sai" />
+
+
+Now that we have created our own component Clock and have rendered what we require, we only need to figure out a way of updating the time each second. Now it is clear that we have to set an interval to update the state at each second and this should be done as soon as the clock component is mounted. Thus, we have to use a lifecycle function componentDidMount() where we will set an interval to update the state, and to make the app efficient we will use componentWillUnmount() method to clear the interval. Let us see the following implementation. 
+
+Open your react project directory and edit the Index.js file from src folder:
+
+src index.js:
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+class Clock extends React.Component {
+	constructor(props)
+	{
+		super(props);
+		this.state = { time : new Date() };
+	}
+
+	// As soon as the Clock is mounted.
+	// Start the interval "timer".
+	// Call tick() every second.
+	componentDidMount()
+	{
+		this.timer = setInterval(
+			() => this.tick(),
+			1000);
+	}
+
+	// Before unmounting the Clock,
+	// Clear the interval "Timer"
+	// This step is a memory efficient step.
+	componentWillUnmount()
+	{
+		clearInterval(this.timer);
+	}
+
+	// This function updates the state,
+	// invokes re-render at each second.
+	tick()
+	{
+		this.setState({
+			time : new Date()
+		});
+	}
+
+	render()
+	{
+		return (
+			<div><h1>Welcome to { this.props.title } !</h1>
+		<h2>{this.state.time.toLocaleTimeString()}</h2></div>
+	);
+}
+}
+
+ReactDOM.render(
+<Clock title="Sai" />,
+			document.getElementById('root'));
+
+

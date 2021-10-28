@@ -1,0 +1,477 @@
+Props 
+React allows us to pass information to a Component using something called props (stands for properties). Props are basically kind of global variable or object.
+Passing and Accessing props
+
+We can pass props to any component as we declare attributes for any HTML tag. Have a look at the below code snippet: 
+ 
+
+<DemoComponent sampleProp = "HelloProp" />
+In the above code snippet, we are passing a prop named sampleProp to the component named DemoComponent. This prop has the value “HelloProp”. Let us now see how can we access these props. 
+We can access any props inside from the component’s class to which the props is passed. The props can be accessed as shown below: 
+ 
+
+this.props.propName;
+We can access any prop from inside a component’s class using the above syntax. The ‘this.props’ is a kind of global object which stores all of a components props. The propName, that is the names of props are keys of this object.
+Below is a sample program to illustrate how to pass and access props from a component: 
+
+Open your react project and edit the App.js file in the src folder:
+
+src App.js:
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// sample component to illustrate props
+class DemoComponent extends React.Component{
+	render(){
+		return(
+
+				<div>
+					{/*accessing information from props */}
+					<h2>Hello {this.props.user}</h2>
+					<h3>Welcome to Sai</h3>
+				</div>
+			);
+	}
+}
+
+ReactDOM.render(
+	// passing props
+	<DemoComponent user = "Sairam" />,
+	document.getElementById("root")
+);
+
+In the above example, we have used a class-based component to illustrate props. But we can pass props to a function-based component also just like we did in the above example. But to access a prop from a function we do not need to use the ‘this’ keyword anymore. Functional components accept props as parameters and can be accessed directly. Below is the same example as above but this time using a function-based component instead of a class-based component. 
+
+Open your react project and edit the App.js file in the src folder:
+
+src App.js:
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// functional component to illustrate props
+function DemoComponent(props){
+	return(
+		<div>
+			{/*accessing information from props */}
+			<h2>Hello {props.user}</h2>
+			<h3>Welcome to Sai</h3>
+		</div>
+	);
+}
+
+ReactDOM.render(
+	// passing props
+	<DemoComponent user = "Sairam" />,
+	document.getElementById("root")
+);
+
+The output of this program will be the same as that of the above program. The only difference is that we have used a function-based component instead of a class-based component.
+ 
+
+Passing information from one component to other
+
+This is one of the coolest features of React. We can make components to interact among themselves. We will consider two components Parent and Children to explain this. We will pass some information as props from our Parent component to the Child component. We can pass as many props as we want to a component.
+Look at the below code: 
+Open your react project and edit the App.js file in the src folder:
+
+src App.js:
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// Parent Component
+class Parent extends React.Component{
+	render(){
+		return(
+				<div>
+					<h2>You are inside Parent Component</h2>
+					<Child name="User" userId = "5555"/>
+				</div>
+			);
+	}
+}
+
+// Child Component
+class Child extends React.Component{
+	render(){
+		return(
+				<div>
+					<h2>Hello, {this.props.name}</h2>
+					<h3>You are inside Child Component</h3>
+					<h3>Your user id is: {this.props.userId}</h3>
+				</div>
+			);
+	}
+}
+
+ReactDOM.render(
+	// passing props
+	<Parent />,
+	document.getElementById("root")
+);
+
+
+So we have seen props in React and also have learned about how props are used, how they can be passed to a component, how they are accessed inside a component, and much more. We have used the thing “this.props.propName” very often in this complete scenario to access props. Let us now check what is actually being stored in this. We will console.log “this.props” in the above program inside the child component and will try to observe what is logged into the console. Below is the modified program with console.log() statement: 
+
+Open your react project and edit the App.js file in the src folder:
+
+src App.js:
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// Parent Component
+class Parent extends React.Component{
+	render(){
+		return(
+				<div>
+					<h2>You are inside Parent Component</h2>
+					<Child name="User" userId = "5555"/>
+				</div>
+			);
+	}
+}
+
+// Child Component
+class Child extends React.Component{
+	render(){
+		console.log(this.props);
+		return(
+				<div>
+					<h2>Hello, {this.props.name}</h2>
+					<h3>You are inside Child Component</h3>
+					<h3>Your user id is: {this.props.userId}</h3>
+				</div>
+			);
+	}
+}
+
+ReactDOM.render(
+	// passing props
+	<Parent />,
+	document.getElementById("root")
+);
+
+You can clearly see in the above image that in the console it is shown that the this.props is an object and it contains all of the props passed to the child component. The props name of the child component are keys of this object and their values are values of these keys. So, it is clear now that whatever information is carried to a component using props is stored inside an object.
+Note: Props are read-only. We are not allowed to modify the content of a prop. Whatever the type of Component is – functional or class-based, none of them is allowed to modify their props.
+
+So, what if we want to pass some default information using props to our components. React allows us to do so. React provides us with something called defaultProps for this purpose. Let’s see about this in details:
+ 
+
+defaultProps
+
+The defaultProps is a method that we can use to store as much information as we want for a particular class. And this information can be accessed from anywhere inside that particular class. Every piece of information you add inside the defaultProps, will be added as the prop of that class. It might seem confusing at this point. Let’s look at a program where we will be using defaultProps to create some props for a class.
+
+Open your react project directory and edit the App.js file from src folder:
+
+src App.js:
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// Component
+class ExampleClass extends React.Component{
+	render(){
+		return(
+				<div>
+					{/* using default prop - title */}
+					<h1>This is {this.props.title}'s Website!</h1>
+				</div>
+			);
+	}
+}
+
+// Creating default props for
+// ExampleClass Component
+ExampleClass.defaultProps = {
+	title: "Sairam"
+}
+
+ReactDOM.render(
+	<ExampleClass />,
+	document.getElementById("root")
+);
+
+You can see in the above program we have created a default prop named title outside the class ExampleClass and accessed this prop inside that class using this.props statement. 
+We can also pass arrays as props, instead of passing single elements. Let’s just see how it is done in the below program: 
+Open your react project directory and edit the App.js file from src folder:
+
+src App.js:
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// Component
+class ExampleClass extends React.Component{
+	render(){
+		return(
+				<div>
+					{/* accessing array prop directly */}
+					<h1>The names of students are: {this.props.names}</h1>
+				</div>
+			);
+	}
+}
+
+// Passing an array as prop
+ExampleClass.defaultProps = {
+	names: ['Ram', 'Shyam', 'Raghav']
+}
+
+ReactDOM.render(
+	<ExampleClass />,
+	document.getElementById("root")
+);
+
+In the above program, we have passed an array of names as a prop to the component ExampleClass. We have also accessed this array directly to print the content of the array. Below is the output when the above code is rendered: 
+
+You can see in the above output that, printing the content of the array using the this.props statement directly, simply prints all elements in the array without any formatting. But this doesn’t look good right? This is not how we print array elements in other programming languages. What if we want to add some formatting before we print an array element? Or in other words, what if we want to iterate the array passed as props? To do so, we can use the map() method available in JavaScript. We will have to pass a function as an argument to the map method. The function will be accepting two parameters out of which the first one is array item and the second one is the index of the array items.
+
+Open your react project directory and edit the App.js file from src folder:
+
+src App.js:
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// Component
+class ExampleClass extends React.Component{
+	render(){
+		return(
+				<div>
+					{/* iterating over array using map() */}
+					<h1>{this.props.names.map(
+						function namesIterator(item,i){
+							return (
+									"Student "+ (i+1) +": " +
+									item+
+									((i!=2)?', ':'\n')
+								)
+						}
+
+						)}</h1>
+				</div>
+			);
+	}
+}
+
+// Passing an array as prop
+ExampleClass.defaultProps = {
+	names: ['Ram', 'Shyam', 'Raghav']
+}
+
+ReactDOM.render(
+	<ExampleClass />,
+	document.getElementById("root")
+);
+
+You can see in the above program how we are iterating over the array passed to the component ExampleClass using map(). 
+
+ PropTypes
+how to pass information to any Component using props. We had passed different types of information like integers, strings, arrays, etc. as props to the components. So, let’s recall the process of how we were passing these props to a component. We can either create defaultProps or have passed props directly as attributes to the components. We were passing props from outside a component and using them inside that component. But did we have checked what type of values we are getting inside our Component through props? No, we do not. But then also everything worked fine. 
+It’s totally upon us whether we validate the data we are getting using props inside a Component or not. But for larger Apps, it is always a good practice to validate the data we are getting through props. This will help in debugging and also helps in avoiding bugs in the future. Let us see how to do this.
+ 
+
+propTypes in React
+
+Before the release of React 15.5.0 version propTypes is available in the react package but in later versions of React have to add a dependency in your project. You can add the dependency in your project by using the command given below:
+
+npm install prop-types --save
+We can use the propType for validating any data we are receiving from props. But before using it we will have to import it. Add the below line at the top of your index.js file : 
+ 
+
+import PropTypes from 'prop-types';
+Once we have imported propTypes we are ready to work with them. Just like defaultProps, propTypes are also objects where keys are the prop names and values are their types. Below syntax shows how to use propTypes: 
+ ComponentClassName.propTypes{
+    
+    propName1 : PropTypes.string,
+    propName2 : PropTypes.bool,
+    propName3 : PropTypes.array,
+    .
+    .
+    .
+    .
+    propNamen : PropTypes.anyOtherType
+}
+In the above Syntax, the ComponentClassName is the name of the class of Component, anyOtherType can be any type that we are allowed to pass as props. For the props which do not validate the type of data specified by propTypes, a warning on the console will occur. Let us see a complete program that uses propTypes for validation for a better understanding: 
+ import PropTypes from 'prop-types';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// Component
+class ComponentExample extends React.Component{
+	render(){
+		return(
+				<div>
+				
+					{/* printing all props */}
+					<h1>
+						{this.props.arrayProp}
+						<br />
+
+						{this.props.stringProp}
+						<br />
+
+						{this.props.numberProp}
+						<br />
+
+						{this.props.boolProp}
+						<br />
+					</h1>
+				</div>
+			);
+	}
+}
+
+// Validating prop types
+ComponentExample.propTypes = {
+	arrayProp: PropTypes.array,
+	stringProp: PropTypes.string,
+	numberProp: PropTypes.number,
+	boolProp: PropTypes.bool,
+}
+
+// Creating default props
+ComponentExample.defaultProps = {
+
+	arrayProp: ['Ram', 'Shyam', 'Raghav'],
+	stringProp: "Sairam",
+	numberProp: "10",
+	boolProp: true,
+}
+
+ReactDOM.render(
+	<ComponentExample />,
+	document.getElementById("root")
+);
+
+You can see in the above program that we are passing the prop named numberProp as a string but validating it as a number. Still, everything is rendered perfectly on the browser but our browser console has a warning message. This message clearly tells us that the prop named numberProp was expected to contain a numeric value but instead a string value is passed. You can go to the official doc of ReactJS to see all the valid types a prop can take.
+Note: In recent versions of React the React.PropTypes is moved to a different package, and we will have to install that package separately in order to use it.
+
+Methods as Props
+For example, we cannot let the child communicate with the parent in this way. This, nonetheless, can be done by passing methods as props in ReactJS. 
+
+To use a method as a props all the steps are described below order wise:
+
+Project Structure: The structure of this project will look like this.
+Step 1: To do this let’s make a new component named ParentComponent.js. Now let’s make the basic layout for a class component in this file.
+
+ParentCompnent.js:
+
+import React, { Component } from 'react';
+
+class ParentComponent extends Component {
+	render() {
+		return (
+			<div>
+					
+			</div>
+		)
+	}
+}
+
+export default ParentComponent;
+
+Step 2: Now let’s set a state to greet our parent whenever this component is rendered, setting a state is not necessary, but we will do it just to make an application more dynamic. Also, let’s make an event that gives an alert whenever the parent component is rendered. Do not forget to bind the event so that the this keyword won’t return “undefined“. 
+
+ParentComponent.js:
+
+import React, { Component } from 'react';
+
+class ParentComponent extends Component {
+	constructor(props) {
+		super(props)
+	
+		this.state = {
+			parentName:'Parent'
+		}
+
+		this.greetParent = this.greetParent.bind(this)
+	}
+	
+	greetParent() {
+		alert(`Hello ${this.state.parentName}`)
+	}
+
+	render() {
+		return (
+			<div>
+					
+			</div>
+		)
+	}
+}
+
+export default ParentComponent;
+
+Step 3: Let’s not forget to import this into our App.js file.
+
+App.js:
+import './App.css';
+import React from 'react';
+
+// imports component
+import ParentComponent from './components/ParentComponent';
+
+function App() {
+return (
+	<div className="App">
+	<h1>-----------METHODS AS PROPS-------------</h1>
+	<ParentComponent />
+
+	</div>
+);
+}
+
+export default App;
+
+Step 4: Now let’s make a new component. Let’s call this ChildComponent.js, and make a simple functional component. Let’s make a simple button, and then pass the method greetParent() as a property. Essentially, the button must greet the parent when it is clicked.
+
+ChildComponent.js:
+
+import React from 'react';
+
+function ChildComponent(props) {
+	return (
+		<div>
+			<button onClick={() => props.greetHandler()}>
+			Greet Parent
+			</button>
+		</div>
+	)
+}
+
+export default ChildComponent;
+
+Ste 5: Don’t forget to import the ChildComponent in ParentComponent. So the final code for ParentComponent will be as follows.
+
+ParentComponent.js:
+import React, { Component } from 'react';
+import ChildComponent from './ChildComponent';
+
+class ParentComponent extends Component {
+	constructor(props) {
+		super(props);
+	
+		this.state = {
+			parentName:'Parent'
+		}
+
+		this.greetParent = this.greetParent.bind(this)
+	}
+	
+	greetParent() {
+		alert(`Hello ${this.state.parentName}`)
+	}
+
+	render() {
+		return (
+			<div>
+				<ChildComponent greetHandler={this.greetParent}/>
+			</div>
+		)
+	}
+}
+
+export default ParentComponent;
