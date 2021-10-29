@@ -1,0 +1,196 @@
+CSS In ReactJS
+
+React CSS
+To style an application, CSS is used. For styling in React app, The style attribute is mostly used. It adds dynamically-computed styles at render time. There are mainly four ways to style React components.
+
+Inline Styling:
+A JavaScript object in camelCase version of the style name is used to specify Inline Styling.
+
+Example:
+App.js:
+
+import React from 'react';  
+import ReactDOM from 'react-dom';  
+class App extends React.Component {  
+render() {  
+return (  
+<div>  
+<h1 style={{color: "Blue"}}>Hello World</h1>  
+<p>Have a Colorful Day.</p>  
+</div>  
+);  
+}  
+}  
+export default App;
+Output:
+
+camelCase Property Name:
+A property name must be written in camel case syntax when the properties have two names.
+
+Example:
+App.js:
+
+import React from 'react';  
+import ReactDOM from 'react-dom';  
+class App extends React.Component {  
+render() {  return (  
+<div>  
+<h1 style={{color: "Blue"}}>Hello World</h1>  
+<p style={{backgroundColor: "yellow"}}>Have a Colorful Day.</p> 
+</div>  
+);  
+}  
+}  
+export default App;
+Output:
+
+Using JavaScript Object:
+Example:
+App.js:
+
+import React from 'react';  
+import ReactDOM from 'react-dom';  
+class App extends React.Component {  
+render() {  
+const styletext = {  
+color: "Blue",  
+backgroundColor: "lightBlue",  
+padding: "5px",  
+font-family: "Arial"  
+};  
+return (  
+<div>  
+<h1 style={styletext}>Hello World</h1>  
+<p>Have a Colorful Day.</p>   
+</div>  
+);  
+}  
+}  
+export default App;
+Output:
+
+CSS Stylesheet:
+CSS Stylesheet allows to write styling in a separate file and to save the file with a .css extension, which can be later imported in an application.
+
+Example:
+App.js:
+
+import React from 'react';  
+import ReactDOM from 'react-dom';  
+import './App.css';  
+class App extends React.Component {  
+render() {  
+return (  
+<div>  
+<h1>Hello World</h1>  
+<p>Have a Colorful Day.</p>  
+</div>  
+);  
+}  
+}  
+export default App;
+App.css:
+
+body {  
+color: blue; 
+font-family: Arial; 
+text-align:centre;
+}
+Index.html:
+
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+<meta charset="utf-8" />  
+<meta name="viewport"  
+content="width=device-width, initial-scale=1" />  
+<title>React App</title>  
+</head>  
+<body>  
+<div id="app"></div>  
+</body>  
+</html>
+Output:
+
+CSS Module:
+All class names and animation names in CSS Module are scoped locally by default, thus the CSS file is available only for the component which imports it. It can never be applied to other components without permission.
+
+Example:
+App.js:
+
+import React from 'react';  
+import ReactDOM from 'react-dom';  
+import styles from './myStyles.module.css';   
+class App extends React.Component {  
+render() {  
+return (  
+<div>  
+<h1 className={styles.mystyle}>Hello World</h1>  
+<p className={styles.parastyle}>Have a Colorful Day.</p>  
+</div>  
+);  
+}  
+}  
+export default App;
+myStyles.module.css:
+
+.mystyle {  
+  background-color: lightblue;  
+  color: Blue;  
+  padding: 10px;  
+  font-family: Arial;  
+  text-align: center;  
+}  
+.parastyle{  
+  background-color: pink;    
+  color: Crimson;  
+  font-family: Arial;  
+  font-size: 5px;  
+  text-align: center;  
+}
+Output:
+
+Styled Components:
+Being a library for React, it enhances CSS for styling React component systems in an application. This component facilitates; Automatic critical CSS; No class name bugs; Easier deletion of CSS; Simple dynamic styling; and Painless maintenance.
+
+Installation:
+Command:
+
+$npm install styled-components --save
+Example:
+App.js:
+
+import React from 'react';  
+import ReactDOM from 'react-dom';  
+import styled from 'styled-components';  
+class App extends React.Component {  
+render() {  
+const Div:any = styled.div`  
+margin: 10px;  
+border: 2px solid blue;  
+&:hover {  
+background-color: ${(props:any) => props.hoverColor};  
+} `; 
+const Title = styled.h1`  
+font-family: Arial;  
+text-align: center;  
+color: Red;  `
+;  
+const Paragraph = styled.p`  
+font-size:40px;
+text-align: center;  
+color: Brown;
+`;  
+return (  
+<div>            
+<Title>Example</Title>  
+<p></p>  
+<Div hoverColor="Crimson">  
+<Paragraph>Hello World</Paragraph>  
+</Div>  
+</div>  
+);  
+}  
+}  
+export default App;
+Output:
