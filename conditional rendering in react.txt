@@ -1,0 +1,94 @@
+Conditional Rendering In ReactJS
+
+React Conditional Rendering
+In React, we can render multiple components on the basis of certain conditions or on the basis of the state of the application. A component in ReactJS thus decides which elements to return depending on one or more conditions. Conditional rendering in React is the same as the conditions in JavaScript. There are various ways for conditional rendering in ReactJS.
+
+if:
+It is the easiest way of conditional rendering in ReactJS. It returns the element to be rendered if the condition is true.
+
+Example:
+
+function Msg1(props) {  
+return <h1>Hello!</h1>;  
+}  
+function Msg2(props) {  
+return <h1>How are you?</h1>;  
+}  
+function SignUp(props) {  
+const isLoggedIn = props.isLoggedIn;  
+if (isLoggedIn) {  
+return <FirstMessage />;  
+}  
+return <SecondMessage />;  
+}  
+ReactDOM.render(  
+<SignUp isLoggedIn={false} />,  
+document.getElementById('root')  
+);
+Logical && operator:
+It returns the element right after && if the condition is true. It ignores and skips if the condition is false.
+
+Syntax:
+
+{  
+    condition &&  expression
+}
+Example:
+
+import React from 'react';   
+import ReactDOM from 'react-dom';   
+function Example()   
+{   
+return(<div>   
+{   
+(100 > 99) && alert('Alert!!!')  
+}   
+</div>   
+);   
+}
+Ternary operator:
+It is used to act as a concise if-else statement, for cases where two blocks alternate given a certain condition. Here, the true statement will be rendered, if the condition is true, and if it is false, the false statement will be rendered.
+
+Syntax:
+
+condition?  true: false
+Example:
+
+render() {  
+const isLoggedIn = this.state.isLoggedIn;  
+return (  
+<div>  
+Welcome {isLoggedIn ? 'Apply for further processing.' : 'You are not logged in.'}.  
+</div>  
+);  
+}
+Switch case operator:
+It is used for multiple conditional renderings.
+
+Example:
+
+function Msg({ text}) {  
+switch(text) {  
+case 'Hello':  
+return <Message: text={text} />;  
+case 'Hello World':  
+return <Message text={text} />;  
+default:  
+return null;  
+}  
+}
+Conditional Rendering with enums:
+It is also used a multiple conditional rendering, same as Switch case, however, it is more readable as compared to switch case operator, and thus is perfect to use for mapping between different state, and for mapping in more than one condition.
+
+Example:
+
+function Msg({ text, state }) {  
+return (  
+<div>  
+{{  
+info: <Message text={text} />,  
+warning: <Message text={text} />,  
+}[state]}  
+</div>  
+);  
+}
