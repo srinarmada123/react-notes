@@ -1,0 +1,92 @@
+Forms In ReactJS
+
+React Forms
+For any modern web application, a form is a crucial part, mainly due to its features of serving numerous purposes like the authentication of the user, adding user, searching, filtering, booking, ordering, etc. In this way, the users interact with the application as well as gather information from the users. In React, a stateful, reactive approach is taken to build forms and this process is generally implemented by using controlled components. The form input to React can be of two types: Uncontrolled component and Controlled component.
+
+Uncontrolled component:
+Similar to the traditional HTML form inputs, the uncontrolled component can be written using a ref to get form values from the DOM. Thus there is no need to write an event handler for every state update and the HTML elements maintain their own state that will be updated when the input value changes.
+
+Example:
+
+import React, { Component } from 'react';  
+class App extends React.Component {  
+constructor(props) {  
+super(props);  
+this.updateSubmit = this.updateSubmit.bind(this);  
+this.input = React.createRef();  
+}  
+updateSubmit(event) {  
+alert('Successful entry'.);  
+event.preventDefault();  
+}  
+render() {  
+return (  
+<form onSubmit={this.updateSubmit}>  
+<h1>Uncontrolled Form</h1>  
+<label>Email:  
+<input type="text" ref={this.input} />  
+</label>  
+<input type="submit" value="Submit" />  
+</form>  
+);  
+}  
+}  
+export default App;
+Output:
+
+Controlled Component:
+Unlike the uncontrolled component, the input form element in the controlled component is handled by the component rather than the DOM. It takes its current value through props. The changes are notified through callbacks.
+
+Example:
+
+import React, { Component } from 'react';  
+class App extends React.Component {  
+constructor(props) {  
+super(props);  
+this.state = {value: ''};  
+this.handleChange = this.handleChange.bind(this);  
+this.handleSubmit = this.handleSubmit.bind(this);  
+}  
+handleChange(event) {  
+this.setState({value: event.target.value});  
+}  
+handleSubmit(event) {  
+alert('Successful Submission: ' + this.state.value);  
+event.preventDefault();  
+}  
+render() {  
+return (  
+<form onSubmit={this.handleSubmit}>  
+<h1>Controlled Form</h1>  
+<label>  
+Email:  
+<input type="text" value={this.state.value} onChange={this.handleChange} />  
+</label>  
+<input type="submit" value="Submit" />  
+</form>  
+);  
+}  
+}  
+export default App;
+Output:
+
+Difference Between Controlled And Uncontrolled
+
+Controlled Component:
+
+Unlike the uncontrolled component, the input form element in the controlled component is handled by the component rather than the DOM. It takes its current value through props. The changes are notified through callbacks.
+
+ 
+
+Uncontrolled component:
+
+Similar to the traditional HTML form inputs, the uncontrolled component can be written using a ref to get form values from the DOM. Thus there is no need to write an event handler for every state update and the HTML elements maintain their own state that will be updated when the input value changes.
+
+ 
+
+CONTROLLED COMPONENT	UNCONTROLLED COMPONENT
+Does not maintain its internal state.	Maintains its internal state.
+Data is controlled by the parent component.	Data is controlled by the DOM itself.
+Accepts its current value as a prop.	Uses a ref for their current values.
+Allows validation control.	Does not allow validation control.
+Better control over the form elements and data.	Limited control over the form elements and data.
