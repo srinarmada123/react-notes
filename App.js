@@ -1,4 +1,5 @@
 import './App.css';
+import Hooks1 from './Hooks1';
 import Sample1 from './Sample1';
 //import Header from './Header';
 //import ParentComp from './ParentComp';
@@ -21,7 +22,8 @@ function App() {
     {/* <LoginForm /> */}
     {/* <SignUpDialog /> */}
     {/* <App1 /> */}
-    <Sample1/>
+    {/* <Sample1/> */}
+    <Hooks1/>
     </div>
   );
 }
