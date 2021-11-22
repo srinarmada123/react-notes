@@ -1,4 +1,4 @@
-import Hook4 from './Hook4';
+// import Hook4 from './Hook4';
 import './App.css';
 // import Hooks1 from './Hooks1';
 // import Sample1 from './Sample1';
@@ -14,8 +14,10 @@ import './App.css';
 //import Hook3 from './Hook3';
 //import ReducerEx from './ReducerEx';
 //import Hook4 from '../Hook4';
+import UseEffect from './UseEffect';
 function App() {
- return (
+  const [data] = UseEffect("https://jsonplaceholder.typicode.com/todos");
+  return (
     <div className="App">
     {/* <Header title="Sai" />       */}
     {/* <Header/> */}
@@ -32,7 +34,12 @@ function App() {
     {/* <Hook2 /> */}
     {/* <Hook3/> */}
     {/* <ReducerEx /> */}
-    <Hook4 />
+    {/* <Hook4 /> */}
+      {data &&
+        data.map((item) => {
+          return <p key={item.id}>{item.title}</p>;
+        })}
+
     </div>
   );
 }

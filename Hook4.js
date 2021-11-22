@@ -1,27 +1,27 @@
-import React,{useState,useCallback} from 'react'
-import Todos from './Todos';
+// import React,{useState,useCallback} from 'react'
+// import Todos from './Todos';
 
-function Hook4() {
-    // const [count, setCount] = useState(0);
-  const [todos, setTodos] = useState([]);
+// function Hook4() {
+//     // const [count, setCount] = useState(0);
+//   const [todos, setTodos] = useState([]);
 
-  // const increment = () => {
-  //   setCount((c) => c + 1);
-  // };
-  const addTodo = useCallback(() => {
-    setTodos((t) => [...t, "New Todo"]);
-  }, [todos]);
+//   // const increment = () => {
+//   //   setCount((c) => c + 1);
+//   // };
+//   const addTodo = useCallback(() => {
+//     setTodos((t) => [...t, "New Todo"]);
+//   }, [todos]);
 
-    return (
-        <>
-      <Todos todos={todos} addTodo={addTodo} />
+//     return (
+//         <>
+//       <Todos todos={todos} addTodo={addTodo} />
 
-        <hr />
-        {/* <div>
-          Count: {count}
-          <button onClick={increment}>+</button>
-        </div> */}
-      </>
-      )
-}
-export default Hook4
+//         <hr />
+//         {/* <div>
+//           Count: {count}
+//           <button onClick={increment}>+</button>
+//         </div> */}
+//       </>
+//       )
+// }
+// export default Hook4
